@@ -104,14 +104,19 @@ section of the real menu: any base plus Mora Meat or Chicken is ₦8,000, the
 two-protein "Mixture of 2" adds ₦500, and extras are priced from the Extras
 list. Add a base, protein or extra to the arrays and the widget follows.
 
-**Hours** → `config.js` → `hours.week`. Confirmed: Mon–Thu 9am–10pm, Fri–Sun
-around the clock.
+**Hours** → `config.js` → `hours.week`. Confirmed: Mon–Thu 9am–10pm; doors open
+Friday 9am and do not close again until Monday morning.
 
 A day is either `{ allDay: true }` or 24-hour `"HH:MM"` open/close times; `null`
-marks it closed. If `close` is earlier than `open` it is treated as closing after
-midnight. Consecutive `allDay` days join into one continuous run, so Friday
-00:00 through Sunday 24:00 reads as one unbroken stretch and the badge says
-"Open 24 hours through Sunday" rather than naming a closing time.
+marks it closed. `close: '00:00'` means midnight at the **end** of that day; a
+`close` otherwise earlier than `open` means closing after midnight.
+
+Days join into one continuous run when each hands over to the next at midnight,
+so Friday 09:00 → Saturday → Sunday 24:00 is one unbroken stretch. The badge
+reads "Open through Sunday" on Friday, "Open 24 hours through Sunday" on
+Saturday, and "Open 24 hours today" on Sunday — never a closing time it would
+not honour. The hours table shows Friday as "From 9am" rather than advertising a
+midnight close it does not keep.
 
 Hours are evaluated in **Africa/Lagos**, not the visitor's timezone — someone
 browsing from London sees Abuja's open/closed state. Verified against six cases
@@ -262,7 +267,7 @@ Checked in a real browser at 390 px and 1440 px:
 - Menu tab filtering across 7 categories, dish → WhatsApp handoff
 - Combo builder maths (base + protein + extras + quantity) and WhatsApp payload
 - Catering form validation (3 required fields)
-- Opening-hours logic across 11 cases — every open/close boundary, the Fri–Sun all-day run, and both sides of midnight, from a non-Nigerian timezone
+- Opening-hours logic across 13 cases — every open/close boundary, the Fri–Sun all-day run, and both sides of midnight, from a non-Nigerian timezone
 - ₦ rendering from the self-hosted webfont, not a fallback
 - Sticky header, no horizontal overflow at either width
 - Map iframe absent until requested
