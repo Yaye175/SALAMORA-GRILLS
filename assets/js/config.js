@@ -12,8 +12,11 @@
 window.SALAMORA = {
 
   brand: {
-    name: 'Salamora Grills',
-    tagline: 'Charcoal-fired since day one',
+    name: 'Salamora Grills and Café',
+    short: 'Salamora',
+    // Taken from the logo badge on their own packaging.
+    tagline: 'Premium Grills · Real Flavours',
+    estd: '2026',
     instagram: 'salamoragrills.ng',
     instagramUrl: 'https://www.instagram.com/salamoragrills.ng'
   },
@@ -27,15 +30,18 @@ window.SALAMORA = {
   },
 
   location: {
-    street: '4 Amisi Musa St',
-    area: 'Jabi',
+    // Confirmed by the client, and matches the location on @salamoragrills.ng.
+    // An earlier brief said "4 Amisi Musa St, Jabi" — that address is wrong
+    // and must not come back.
+    venue: 'Dreamland Suites',
+    street: 'Jabi Lake',
+    area: 'Utako',
     city: 'Abuja',
     country: 'Nigeria',
-    get full() { return `${this.street}, ${this.area}, ${this.city}`; },
-    // PLACEHOLDER co-ordinates — approximate Jabi centre, NOT a surveyed
-    // pin. Replace with the exact lat/lng from the business' Google
-    // Business Profile before launch or customers will be sent next door.
-    mapQuery: '4 Amisi Musa Street, Jabi, Abuja, Nigeria'
+    get full() { return `${this.venue}, ${this.street}, ${this.area}, ${this.city}`; },
+    // A text search, not a surveyed pin. Swap in the exact lat/lng from the
+    // Google Business Profile so customers are not sent to a neighbouring unit.
+    mapQuery: 'Dreamland Suites, Jabi Lake, Utako, Abuja, Nigeria'
   },
 
   /* ---------------------------------------------------------------
@@ -68,10 +74,11 @@ window.SALAMORA = {
 
   // Shown in the hero ticker.
   ticker: [
-    'Open charcoal fire',
-    'Same-day delivery across Abuja',
-    'Party platters from 10 guests',
-    'Point & kill catfish',
-    'Suya spiced in-house'
+    'Premium grills · real flavours',
+    'Mora Meat combos from ₦8,000',
+    'Shawarma off the hot plate',
+    'Shisha by the pot',
+    'Breakfast served daily',
+    'Delivery across Abuja'
   ]
 };

@@ -304,8 +304,9 @@
     if (!tabsEl) return;
 
     var cats = DATA.categories.concat([{ id: 'all', label: 'Everything', short: 'All' }]);
-    // Platters open first: it is the highest-value category and it keeps the
-    // initial mobile page short. 'Everything' is one tap away, last in the row.
+    // Mora Meat Combos open first: the signature line, the one with the most
+    // photography, and short enough to keep the initial mobile page sane.
+    // 'Everything' is one tap away, last in the row.
     var DEFAULT_CAT = cats[0].id;
 
     tabsEl.innerHTML = cats.map(function (c) {
@@ -360,40 +361,39 @@
   }
 
   /* ---------------------------------------------------------
-     CUSTOM PLATTER BUILDER
+     BUILD YOUR MORA COMBO
+     Mirrors the Mora Meat Combos section of the real menu: any base
+     plus Mora Meat or Chicken is one price, "Mixture of 2" carries a
+     small upcharge, and extras are priced from the Extras list.
   --------------------------------------------------------- */
   function initBuilder() {
     var B = DATA.builder;
     var form = $('#builder');
     if (!form) return;
 
-    var MAX = B.rules.sidesRequired;
     var qty = 1;
+
+    $('#optBase').innerHTML = B.bases.map(function (b) {
+      return '<label class="opt"><input type="radio" name="base" value="' + b.id + '">' +
+        '<span class="opt__box"></span>' +
+        '<span class="opt__t"><span class="opt__n">' + b.name + '</span>' +
+        '<span class="opt__s">' + b.note + '</span></span>' +
+        '<span class="opt__p">' + naira(b.price) + '</span></label>';
+    }).join('');
 
     $('#optProtein').innerHTML = B.proteins.map(function (p) {
       return '<label class="opt"><input type="radio" name="protein" value="' + p.id + '">' +
         '<span class="opt__box"></span>' +
         '<span class="opt__t"><span class="opt__n">' + p.name + '</span>' +
         '<span class="opt__s">' + p.note + '</span></span>' +
-        '<span class="opt__p">' + naira(p.price) + '</span></label>';
+        '<span class="opt__p">' + (p.price ? '+' + naira(p.price) : 'Included') + '</span></label>';
     }).join('');
 
-    $('#optSides').innerHTML = B.sides.map(function (s) {
-      return '<label class="opt" data-side="' + s.id + '"><input type="checkbox" name="side" value="' + s.id + '">' +
+    $('#optExtras').innerHTML = B.extras.map(function (x) {
+      return '<label class="opt"><input type="checkbox" name="extra" value="' + x.id + '">' +
         '<span class="opt__box"></span>' +
-        '<span class="opt__t"><span class="opt__n">' + s.name + '</span></span>' +
-        '<span class="opt__p">' + (s.price ? '+' + naira(s.price) : 'Included') + '</span></label>';
-    }).join('');
-
-    $('#optSpice').innerHTML = B.spice.map(function (s, i) {
-      var flames = '';
-      for (var f = 1; f <= 4; f++) flames += '<i class="' + (f <= s.level ? 'on' : '') + '"></i>';
-      return '<label class="opt"><input type="radio" name="spice" value="' + s.id + '"' +
-        (i === 1 ? ' checked' : '') + '>' +
-        '<span class="opt__box"></span>' +
-        '<span class="opt__t"><span class="opt__n">' + s.name + '</span>' +
-        '<span class="opt__s">' + s.note + '</span></span>' +
-        '<span class="flames" aria-hidden="true">' + flames + '</span></label>';
+        '<span class="opt__t"><span class="opt__n">' + x.name + '</span></span>' +
+        '<span class="opt__p">+' + naira(x.price) + '</span></label>';
     }).join('');
 
     function byId(arr, id) {
@@ -402,64 +402,53 @@
     }
 
     function state() {
+      var b = form.querySelector('input[name=base]:checked');
       var p = form.querySelector('input[name=protein]:checked');
-      var sp = form.querySelector('input[name=spice]:checked');
-      var sides = $$('input[name=side]:checked', form).map(function (i) { return byId(B.sides, i.value); });
       return {
+        base: b ? byId(B.bases, b.value) : null,
         protein: p ? byId(B.proteins, p.value) : null,
-        sides: sides,
-        spice: sp ? byId(B.spice, sp.value) : null
+        extras: $$('input[name=extra]:checked', form).map(function (i) { return byId(B.extras, i.value); })
       };
     }
 
     function unitPrice(s) {
-      var t = s.protein ? s.protein.price : 0;
-      s.sides.forEach(function (x) { t += x.price; });
+      var t = s.base ? s.base.price : 0;
+      if (s.protein) t += s.protein.price;
+      s.extras.forEach(function (x) { t += x.price; });
       return t;
     }
 
     function update() {
       var s = state();
-      var n = s.sides.length;
+      var n = s.extras.length;
 
-      // Lock remaining sides once two are picked — a hard rule beats a
-      // post-submit error message.
-      $$('#optSides .opt').forEach(function (l) {
-        var input = $('input', l);
-        var lock = (n >= MAX && !input.checked);
-        input.disabled = lock;
-        l.classList.toggle('is-locked', lock);
-      });
+      var cnt = $('#extraCount');
+      cnt.textContent = n ? n + ' added' : 'Optional';
+      cnt.classList.toggle('is-done', n > 0);
+      $('#extraHint').textContent = n
+        ? 'Added to your combo.'
+        : 'Skip this step if you like.';
+      $('#extraHint').classList.toggle('is-warn', false);
 
-      var cnt = $('#sideCount');
-      cnt.textContent = n + ' / ' + MAX;
-      cnt.classList.toggle('is-done', n === MAX);
-      $('#sideHint').textContent = n === MAX
-        ? 'Locked in. Untick one to swap.'
-        : 'Choose ' + (MAX - n) + ' more.';
-      $('#sideHint').classList.toggle('is-warn', n !== MAX);
-
-      var list = $('#tallyList');
       var rows = [];
-      if (s.protein) {
-        rows.push(['<strong>' + s.protein.name + '</strong>', naira(s.protein.price)]);
-        s.sides.forEach(function (x) { rows.push([x.name, x.price ? '+' + naira(x.price) : 'incl.']); });
-        if (s.spice) rows.push([s.spice.name + ' pepper', '—']);
+      if (s.base) {
+        rows.push(['<strong>' + s.base.name + '</strong>', naira(s.base.price)]);
+        if (s.protein) rows.push([s.protein.name, s.protein.price ? '+' + naira(s.protein.price) : 'incl.']);
+        s.extras.forEach(function (x) { rows.push([x.name, '+' + naira(x.price)]); });
       }
 
-      list.innerHTML = rows.length
+      $('#tallyList').innerHTML = rows.length
         ? rows.map(function (r) { return '<li><span>' + r[0] + '</span><span>' + r[1] + '</span></li>'; }).join('')
         : '<li class="empty">Nothing picked yet…</li>';
 
-      var total = unitPrice(s) * qty;
-      $('#tallyTotal').textContent = naira(total);
+      $('#tallyTotal').textContent = naira(unitPrice(s) * qty);
       $('#qtyVal').textContent = qty;
 
-      var ready = !!s.protein && n === MAX && !!s.spice;
+      var ready = !!s.base && !!s.protein;
       $('#builderSend').disabled = !ready;
       $('#builderMsg').textContent = ready
-        ? 'You’ll get a chat with this platter already written out.'
-        : (!s.protein ? 'Pick a protein to start.' : 'Pick ' + (MAX - n) + ' more side' + (MAX - n === 1 ? '' : 's') + '.');
+        ? 'You\u2019ll get a chat with this combo already written out.'
+        : (!s.base ? 'Pick a base to start.' : 'Now choose your protein.');
     }
 
     form.addEventListener('change', update);
@@ -469,20 +458,25 @@
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var s = state();
-      if (!s.protein || s.sides.length !== MAX || !s.spice) return;
-      openWA([
+      if (!s.base || !s.protein) return;
+      var lines = [
         HELLO,
-        'I built a custom platter on your site:',
+        'I built a combo on your site:',
         '',
-        'Protein: ' + s.protein.name + ' (' + s.protein.note + ')',
-        'Sides: ' + s.sides.map(function (x) { return x.name; }).join(' + '),
-        'Pepper: ' + s.spice.name,
+        'Base: ' + s.base.name,
+        'Protein: ' + s.protein.name
+      ];
+      if (s.extras.length) {
+        lines.push('Extras: ' + s.extras.map(function (x) { return x.name; }).join(', '));
+      }
+      lines.push(
         'Quantity: ' + qty,
         '',
         'Estimated total: ' + naira(unitPrice(s) * qty),
-        '(Website estimate — please confirm the final price.)'
-      ]);
-      toast('Opening WhatsApp…');
+        '(Website estimate \u2014 please confirm the final price.)'
+      );
+      openWA(lines);
+      toast('Opening WhatsApp\u2026');
     });
 
     update();

@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Salamora Grills — Sizzling BBQ &amp; Gourmet Grill Platters in Abuja</title>
-<meta name="description" content="Charcoal-fired grill platters, whole croaker, catfish, asun and suya in Jabi, Abuja. Order online via WhatsApp or book event catering.">
+<title>Salamora Grills and Café — Premium Grills &amp; Real Flavours, Jabi Lake Abuja</title>
+<meta name="description" content="Shawarma, Mora Meat combos, wings, burgers, rice and shisha at Dreamland Suites, Jabi Lake, Utako, Abuja. Order on WhatsApp or book catering.">
 <meta name="theme-color" content="#121212">
 
 <!-- PROTOTYPE GUARD — remove this tag and robots.txt at launch.
@@ -16,14 +16,14 @@
 <link rel="apple-touch-icon" href="assets/favicon.svg">
 
 <meta property="og:type" content="restaurant">
-<meta property="og:title" content="Salamora Grills — Sizzling BBQ &amp; Gourmet Grill Platters in Abuja">
-<meta property="og:description" content="Open-fire grill house in Jabi, Abuja. Platters, seafood, suya, asun. Delivery across Abuja.">
+<meta property="og:title" content="Salamora Grills and Café — Premium Grills &amp; Real Flavours">
+<meta property="og:description" content="Grills and café at Jabi Lake, Abuja. Shawarma, Mora Meat combos, wings, rice, breakfast and shisha.">
 <meta property="og:locale" content="en_NG">
 
 <!-- Fonts are self-hosted: no third-party DNS + TLS round trip on first paint,
      and the site keeps its typography if Google Fonts is slow or unreachable. -->
-<link rel="preload" href="assets/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/public-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/fonts.css">
 <link rel="stylesheet" href="assets/css/styles.css">
 </head>
@@ -42,7 +42,7 @@
     </a>
 
     <nav class="nav" id="nav" aria-label="Main">
-      <a href="#menu">Menu &amp; Platters</a>
+      <a href="#menu">Menu</a>
       <a href="#catering">Event Catering</a>
       <a href="#location">Location</a>
       <a class="btn btn--order nav__cta" href="#order" data-wa="header">Order Now</a>
@@ -67,18 +67,18 @@
   <div class="grate" aria-hidden="true"></div>
 
   <div class="hero__in">
-    <p class="eyebrow"><span class="dot"></span> 4 Amisi Musa St · Jabi · Abuja</p>
+    <p class="eyebrow"><span class="dot"></span> Dreamland Suites · Jabi Lake · Utako · Abuja</p>
 
     <h1 class="hero__h1">
-      <span class="l1">Sizzling BBQ &amp;</span>
-      <span class="l2">Gourmet Grill</span>
-      <span class="l3">Platters<em> in Abuja</em></span>
+      <span class="l1">Premium</span>
+      <span class="l2">Grills &amp; Real</span>
+      <span class="l3">Flavours<em> in Jabi</em></span>
     </h1>
 
     <p class="hero__sub">
-      Everything hits the open charcoal to order — whole croaker, goat asun,
-      beef suya and loaded platters built for sharing. Eat in at Jabi or get it
-      delivered across the city while it&rsquo;s still smoking.
+      Shawarma off the hot plate, Mora Meat combos, wings, burgers and rice —
+      plus breakfast through the morning and shisha after dark. Eat in at
+      Jabi Lake or get it delivered across Abuja.
     </p>
 
     <div class="hero__cta">
@@ -106,7 +106,7 @@
   <div class="wrap">
     <header class="sec__hd">
       <p class="kicker"><span class="dot"></span> The Menu</p>
-      <h2 class="sec__h2">Straight off<br><em>the coals</em></h2>
+      <h2 class="sec__h2">The whole<br><em>menu</em></h2>
       <p class="sec__lede">Tap a category. Tap a dish to drop it into a WhatsApp order.</p>
     </header>
 
@@ -126,8 +126,8 @@
   <div class="wrap">
     <header class="sec__hd">
       <p class="kicker"><span class="dot"></span> Build Your Own</p>
-      <h2 class="sec__h2">Custom<br><em>platter</em></h2>
-      <p class="sec__lede">One protein. Two sides. Pick your heat. Price updates as you go.</p>
+      <h2 class="sec__h2">Mora<br><em>combo</em></h2>
+      <p class="sec__lede">Pick a base, pick your protein, add what you like. Price updates as you go.</p>
     </header>
 
     <form class="builder" id="builder" novalidate>
@@ -135,28 +135,28 @@
         <div class="builder__main">
 
           <fieldset class="step" data-step="1">
-            <legend><span class="step__n">01</span> Choose your protein</legend>
-            <div class="opts opts--protein" id="optProtein"></div>
+            <legend><span class="step__n">01</span> Choose your base</legend>
+            <div class="opts opts--protein" id="optBase"></div>
           </fieldset>
 
           <fieldset class="step" data-step="2">
-            <legend>
-              <span class="step__n">02</span> Pick 2 sides
-              <span class="step__count" id="sideCount">0 / 2</span>
-            </legend>
-            <div class="opts opts--side" id="optSides"></div>
-            <p class="step__hint" id="sideHint">Choose exactly two.</p>
+            <legend><span class="step__n">02</span> Choose your protein</legend>
+            <div class="opts opts--protein" id="optProtein"></div>
           </fieldset>
 
           <fieldset class="step" data-step="3">
-            <legend><span class="step__n">03</span> Pepper level</legend>
-            <div class="opts opts--spice" id="optSpice"></div>
+            <legend>
+              <span class="step__n">03</span> Add extras
+              <span class="step__count" id="extraCount">Optional</span>
+            </legend>
+            <div class="opts opts--side" id="optExtras"></div>
+            <p class="step__hint" id="extraHint">Skip this step if you like.</p>
           </fieldset>
         </div>
 
         <!-- Live total -->
         <aside class="tally" id="tally">
-          <p class="tally__lbl">Your platter</p>
+          <p class="tally__lbl">Your combo</p>
           <ul class="tally__list" id="tallyList"></ul>
           <div class="tally__qty">
             <span>Quantity</span>
@@ -171,9 +171,9 @@
             <output class="tally__num" id="tallyTotal" aria-live="polite">₦0</output>
           </div>
           <button type="submit" class="btn btn--order btn--full" id="builderSend" disabled>
-            Send platter to WhatsApp
+            Send combo to WhatsApp
           </button>
-          <p class="tally__note" id="builderMsg">Pick a protein and 2 sides to continue.</p>
+          <p class="tally__note" id="builderMsg">Pick a base and a protein to continue.</p>
         </aside>
       </div>
     </form>
@@ -188,13 +188,13 @@
         <p class="kicker"><span class="dot"></span> Catering &amp; Bulk</p>
         <h2 class="sec__h2">We bring<br><em>the fire</em></h2>
         <p class="sec__lede">
-          Office lunches, birthdays, weddings, church programmes, corporate
-          end-of-year. We grill on site or deliver hot-held platters to your venue.
+          Office lunches, birthdays, church programmes, corporate end-of-year.
+          We cater from the Jabi Lake kitchen and deliver hot to your venue.
         </p>
         <ul class="cater__pts">
           <li><strong>From 10 guests</strong> upward, anywhere in Abuja</li>
-          <li><strong>Live grill station</strong> with our own chef and coals</li>
-          <li><strong>Custom platters</strong> built around your budget per head</li>
+          <li><strong>Trays and platters</strong> of combos, wings and rice</li>
+          <li><strong>Built to budget</strong> — tell us your spend per head</li>
           <li><strong>48h notice</strong> preferred for parties over 50</li>
         </ul>
       </div>
@@ -267,7 +267,7 @@
   <div class="wrap">
     <header class="sec__hd">
       <p class="kicker"><span class="dot"></span> Find Us</p>
-      <h2 class="sec__h2">Jabi,<br><em>Abuja</em></h2>
+      <h2 class="sec__h2">Jabi Lake,<br><em>Abuja</em></h2>
     </header>
 
     <div class="loc">
@@ -281,8 +281,9 @@
         </div>
 
         <address class="loc__addr">
-          <strong>4 Amisi Musa St</strong><br>
-          Jabi, Abuja, Nigeria
+          <strong>Dreamland Suites</strong><br>
+          Jabi Lake, Utako<br>
+          Abuja, Nigeria
         </address>
 
         <div class="loc__btns">
@@ -318,7 +319,7 @@
     <div class="ftr__top">
       <div class="ftr__brand">
         <span class="logo__txt logo__txt--big">Salamora<em>Grills</em></span>
-        <p>Open-fire grill house in Jabi. Charcoal, pepper, and nothing microwaved.</p>
+        <p>Grills and café at Jabi Lake. Premium grills, real flavours, served till late.</p>
         <a class="ig" id="igLink" href="#" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" aria-hidden="true" class="ico"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.8 3.8 0 0 1-1.38-.9c-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 3.08A6.76 6.76 0 1 0 18.76 12 6.76 6.76 0 0 0 12 5.24Zm0 11.15A4.39 4.39 0 1 1 16.39 12 4.39 4.39 0 0 1 12 16.39Zm8.6-11.42a1.58 1.58 0 1 1-1.58-1.58 1.58 1.58 0 0 1 1.58 1.58Z"/></svg>
           <span id="igHandle">@salamoragrills.ng</span>
@@ -338,7 +339,7 @@
     </div>
 
     <div class="ftr__bot">
-      <p>&copy; <span id="yr"></span> Salamora Grills · 4 Amisi Musa St, Jabi, Abuja</p>
+      <p>&copy; <span id="yr"></span> Salamora Grills and Café · Dreamland Suites, Jabi Lake, Utako, Abuja</p>
       <p class="ftr__proto">Design prototype · content &amp; pricing unverified</p>
     </div>
   </div>
