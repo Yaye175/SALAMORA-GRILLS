@@ -78,19 +78,26 @@
 
   function slot(day) { return CFG.hours.week[(day + 7) % 7] || null; }
 
+  // `close: '00:00'` means midnight at the END of the day, so the day runs
+  // right up to the handover point rather than closing in the small hours.
+  function closesAtMidnight(sl) { return !!sl && !sl.allDay && sl.close === '00:00'; }
+
+  // A day hands over to the next only if that next day starts at midnight.
+  function picksUpAtMidnight(sl) { return !!sl && (sl.allDay || sl.open === '00:00'); }
+
   /**
-   * Consecutive all-day days form one continuous run, so Friday through
-   * Sunday reads as one unbroken stretch rather than three separate days.
-   * Returns the index of the last day in the run starting at `day`.
+   * Days join into one continuous run when each hands over to the next at
+   * midnight, so Friday 09:00 -> Saturday -> Sunday 24:00 is one unbroken
+   * stretch. Returns the index of the day the run finishes on.
    */
   function runEndsOn(day) {
     for (var i = 0; i < 7; i++) {
+      var cur = slot(day);
+      if (!cur || !(cur.allDay || closesAtMidnight(cur))) break;
       var next = slot(day + 1);
-      // The run continues if tomorrow is all-day, or opens exactly at midnight.
-      if (!next) break;
-      if (!next.allDay && next.open !== '00:00') break;
+      if (!picksUpAtMidnight(next)) break;
       day = day + 1;
-      if (!next.allDay) break; // opens at midnight but closes during the day
+      if (!next.allDay) break; // opens at midnight but closes during that day
     }
     return (day + 7) % 7;
   }
@@ -114,7 +121,12 @@
       }
       var o = toMin(today.open), c = toMin(today.close);
       var isOpen = (c > o) ? (now.mins >= o && now.mins < c) : (now.mins >= o);
-      if (isOpen) return { open: true, until: today.close };
+      if (isOpen) {
+        var end = runEndsOn(now.day);
+        // A day that runs to midnight and hands over stays open past today.
+        if (end !== now.day) return { open: true, runEnd: end };
+        return { open: true, until: today.close };
+      }
       if (now.mins < o) return { open: false, nextDay: now.day, nextAt: today.open };
     }
 
@@ -145,10 +157,10 @@
       pip.className = 'status__pip is-open';
       nowL.textContent = 'Open now';
       var detail;
-      if (st.allDay) {
-        detail = (st.runEnd === now.day)
-          ? 'Open 24 hours today'
-          : 'Open 24 hours through ' + DAYS[st.runEnd];
+      if (st.runEnd != null && st.runEnd !== now.day) {
+        detail = (st.allDay ? 'Open 24 hours through ' : 'Open through ') + DAYS[st.runEnd];
+      } else if (st.allDay) {
+        detail = 'Open 24 hours today';
       } else {
         detail = 'Kitchen closes ' + pretty12(st.until);
       }
@@ -184,8 +196,10 @@
         var s = slot(d);
         var tr = document.createElement('tr');
         if (d === now.day) tr.className = 'is-today';
+        var rolls = closesAtMidnight(s) && picksUpAtMidnight(slot(d + 1));
         var when = !s ? 'Closed'
                  : s.allDay ? 'Open 24 hours'
+                 : rolls ? 'From ' + pretty12(s.open)
                  : pretty12(s.open) + ' – ' + pretty12(s.close);
         tr.innerHTML = '<td>' + DAYS[d] + '</td><td>' + when + '</td>';
         tb.appendChild(tr);
