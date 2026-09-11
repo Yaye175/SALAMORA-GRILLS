@@ -2,8 +2,13 @@
 
 Open-fire grill house, 4 Amisi Musa St, Jabi, Abuja.
 
-Static site. No build step, no dependencies, no server. Open `index.html` or drop
-the folder on any static host (Netlify, Vercel, Cloudflare Pages, GitHub Pages).
+Static site. No build step and nothing to install to run it — open `index.html`
+or drop the folder on any static host (Netlify, Vercel, Cloudflare Pages, GitHub
+Pages). What ships to the browser is HTML, CSS, JS and fonts: zero runtime
+dependencies, zero third-party requests.
+
+`package.json` exists only for the accessibility check in CI. Those
+dependencies never reach the site.
 
 ```
 index.html
@@ -14,6 +19,10 @@ assets/js/menu.js         ← menu items, prices, platter-builder options
 assets/js/app.js          behaviour
 assets/fonts/             self-hosted woff2
 assets/favicon.svg
+
+tests/a11y.mjs            accessibility check (dev only)
+.github/workflows/        CI
+package.json              dev dependencies for the check above — not shipped
 ```
 
 ---
@@ -167,6 +176,42 @@ Modern evergreen browsers. Uses `:has()`, `IntersectionObserver`,
 is on old Android WebView, the side-selection highlight (`:has()`) degrades to an
 unstyled-but-working checkbox — the builder still calculates correctly.
 
+## The accessibility check
+
+`.github/workflows/accessibility.yml` runs axe-core against the site on every
+pull request to `main`, at two viewports across six states, and fails the build
+on any WCAG 2.1 A or AA violation.
+
+```bash
+npm ci
+npx playwright install chromium
+npm run test:a11y
+```
+
+It exists for one specific regression. `#FF5722` is 3.16:1 against white, below
+the AA minimum of 4.5:1, so small white text sits on `--ember-fill` (`#C93D12`,
+5.05:1) instead — see *Notes on decisions* above. That split is easy to undo by
+accident: someone restores the brand orange on a button and the site silently
+fails AA again. Setting `--ember-fill` back to `#FF5722` turns this check red
+across four selectors, naming each one and its measured ratio. That failure path
+was tested, not assumed.
+
+It scans more than the landing state, because a load-time-only scan misses the
+states people actually sit in: the mobile nav drawer open, a different menu tab,
+the builder with selections made, and the catering form showing validation
+errors.
+
+Dependency versions are pinned exactly with a committed lockfile and installed
+with `npm ci`. A floating axe-core would change rule coverage between runs and
+turn the build red with no code change, which is the fastest way to get a check
+ignored.
+
+**What it does not cover.** axe-core catches roughly a third to a half of
+accessibility problems — the machine-checkable ones. It cannot tell you whether
+the tab order makes sense, whether a screen-reader announcement is useful, or
+whether an animation is nauseating. Passing this check is a floor, not a
+verdict.
+
 ## Verified
 
 Checked in a real browser at 390 px and 1440 px:
@@ -178,4 +223,4 @@ Checked in a real browser at 390 px and 1440 px:
 - ₦ rendering from the self-hosted webfont, not a fallback
 - Sticky header, no horizontal overflow at either width
 - Map iframe absent until requested
-- axe-core WCAG 2.1 AA: 0 violations
+- axe-core WCAG 2.1 AA: 0 violations across 6 scenarios, enforced in CI
