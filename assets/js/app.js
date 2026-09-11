@@ -78,28 +78,56 @@
 
   function slot(day) { return CFG.hours.week[(day + 7) % 7] || null; }
 
+  /**
+   * Consecutive all-day days form one continuous run, so Friday through
+   * Sunday reads as one unbroken stretch rather than three separate days.
+   * Returns the index of the last day in the run starting at `day`.
+   */
+  function runEndsOn(day) {
+    for (var i = 0; i < 7; i++) {
+      var next = slot(day + 1);
+      // The run continues if tomorrow is all-day, or opens exactly at midnight.
+      if (!next) break;
+      if (!next.allDay && next.open !== '00:00') break;
+      day = day + 1;
+      if (!next.allDay) break; // opens at midnight but closes during the day
+    }
+    return (day + 7) % 7;
+  }
+
   function openState() {
     var now = lagosNow();
     var today = slot(now.day);
-    var yday  = slot(now.day - 1);
+    var yday = slot(now.day - 1);
 
-    // A shift started yesterday that runs past midnight.
-    if (yday) {
+    // A timed shift that started yesterday and runs past midnight.
+    if (yday && !yday.allDay) {
       var yo = toMin(yday.open), yc = toMin(yday.close);
       if (yc <= yo && now.mins < yc) {
         return { open: true, until: yday.close };
       }
     }
+
     if (today) {
+      if (today.allDay) {
+        return { open: true, allDay: true, runEnd: runEndsOn(now.day) };
+      }
       var o = toMin(today.open), c = toMin(today.close);
       var isOpen = (c > o) ? (now.mins >= o && now.mins < c) : (now.mins >= o);
       if (isOpen) return { open: true, until: today.close };
       if (now.mins < o) return { open: false, nextDay: now.day, nextAt: today.open };
     }
+
     // Scan forward for the next opening.
     for (var i = 1; i <= 7; i++) {
-      var s = slot(now.day + i);
-      if (s) return { open: false, nextDay: (now.day + i) % 7, nextAt: s.open };
+      var sl = slot(now.day + i);
+      if (sl) {
+        return {
+          open: false,
+          nextDay: (now.day + i) % 7,
+          nextAt: sl.allDay ? '00:00' : sl.open
+        };
+      }
     }
     return { open: false };
   }
@@ -116,11 +144,19 @@
     if (st.open) {
       pip.className = 'status__pip is-open';
       nowL.textContent = 'Open now';
-      nxtL.textContent = 'Kitchen closes ' + pretty12(st.until);
+      var detail;
+      if (st.allDay) {
+        detail = (st.runEnd === now.day)
+          ? 'Open 24 hours today'
+          : 'Open 24 hours through ' + DAYS[st.runEnd];
+      } else {
+        detail = 'Kitchen closes ' + pretty12(st.until);
+      }
+      nxtL.textContent = detail;
       if (bar) {
         bar.hidden = false;
         bar.className = 'hdr__status is-open';
-        bar.textContent = '● Open now · closes ' + pretty12(st.until) + ' · ordering live';
+        bar.textContent = '● Open now · ' + detail.replace(/^Kitchen c/, 'c') + ' · ordering live';
       }
     } else {
       pip.className = 'status__pip is-closed';
@@ -148,8 +184,10 @@
         var s = slot(d);
         var tr = document.createElement('tr');
         if (d === now.day) tr.className = 'is-today';
-        tr.innerHTML = '<td>' + DAYS[d] + '</td><td>' +
-          (s ? pretty12(s.open) + ' – ' + pretty12(s.close) : 'Closed') + '</td>';
+        var when = !s ? 'Closed'
+                 : s.allDay ? 'Open 24 hours'
+                 : pretty12(s.open) + ' – ' + pretty12(s.close);
+        tr.innerHTML = '<td>' + DAYS[d] + '</td><td>' + when + '</td>';
         tb.appendChild(tr);
       }
     }

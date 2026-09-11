@@ -38,7 +38,6 @@ What is still unconfirmed:
 
 | What | Where | Risk if shipped as-is |
 |---|---|---|
-| **Opening hours, all 7 days** | `config.js` → `hours` | The live "Open now" badge will lie to customers. This is the biggest remaining gap. |
 | Dish descriptions | `menu.js` → `desc` | Written for the site, never checked with the kitchen |
 | Delivery areas | `config.js` → `deliveryAreas` | Implied coverage that may not exist |
 | Map pin | `config.js` → `mapQuery` | A text search, not surveyed co-ordinates — Google may drop the pin on a neighbouring unit |
@@ -105,10 +104,14 @@ section of the real menu: any base plus Mora Meat or Chicken is ₦8,000, the
 two-protein "Mixture of 2" adds ₦500, and extras are priced from the Extras
 list. Add a base, protein or extra to the arrays and the widget follows.
 
-**Hours** → `config.js` → `hours.week`. 24-hour `"HH:MM"`. Set a day to `null`
-for closed. If `close` is earlier than `open` it is treated as closing after
-midnight, so Friday `{ open: '12:00', close: '00:30' }` correctly stays "Open
-now" at 00:15 on Saturday.
+**Hours** → `config.js` → `hours.week`. Confirmed: Mon–Thu 9am–10pm, Fri–Sun
+around the clock.
+
+A day is either `{ allDay: true }` or 24-hour `"HH:MM"` open/close times; `null`
+marks it closed. If `close` is earlier than `open` it is treated as closing after
+midnight. Consecutive `allDay` days join into one continuous run, so Friday
+00:00 through Sunday 24:00 reads as one unbroken stretch and the badge says
+"Open 24 hours through Sunday" rather than naming a closing time.
 
 Hours are evaluated in **Africa/Lagos**, not the visitor's timezone — someone
 browsing from London sees Abuja's open/closed state. Verified against six cases
@@ -259,7 +262,7 @@ Checked in a real browser at 390 px and 1440 px:
 - Menu tab filtering across 7 categories, dish → WhatsApp handoff
 - Combo builder maths (base + protein + extras + quantity) and WhatsApp payload
 - Catering form validation (3 required fields)
-- Opening-hours logic across midnight and from a non-Nigerian timezone (6 cases)
+- Opening-hours logic across 11 cases — every open/close boundary, the Fri–Sun all-day run, and both sides of midnight, from a non-Nigerian timezone
 - ₦ rendering from the self-hosted webfont, not a fallback
 - Sticky header, no horizontal overflow at either width
 - Map iframe absent until requested

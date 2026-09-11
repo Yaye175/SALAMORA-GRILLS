@@ -45,24 +45,31 @@ window.SALAMORA = {
   },
 
   /* ---------------------------------------------------------------
-     OPENING HOURS — PLACEHOLDER
+     OPENING HOURS — confirmed by the client
      ---------------------------------------------------------------
-     24h "HH:MM". If `close` is earlier than `open` it is treated as
-     closing after midnight (e.g. open 12:00, close 01:00 = 1am next day).
-     Set a day to `null` to mark it closed.
+     Mon-Thu 9am-10pm. Fri, Sat and Sun run around the clock.
+
+     A day is either { allDay: true } or 24h "HH:MM" open/close times.
+     If `close` is earlier than `open` it is treated as closing after
+     midnight. Set a day to `null` to mark it closed.
+
+     Consecutive allDay days join into one continuous run, so Friday
+     00:00 through Sunday 24:00 reads as one unbroken stretch rather
+     than three separate days.
+
      Evaluated in Africa/Lagos — NOT the visitor's timezone. A customer
      browsing from London must still see Abuja's open/closed state.
   --------------------------------------------------------------- */
   hours: {
     timeZone: 'Africa/Lagos',
     week: {
-      0: { open: '13:00', close: '23:00' }, // Sunday
-      1: { open: '12:00', close: '22:00' },
-      2: { open: '12:00', close: '22:00' },
-      3: { open: '12:00', close: '22:00' },
-      4: { open: '12:00', close: '23:00' },
-      5: { open: '12:00', close: '00:30' }, // Friday — closes 12:30am Sat
-      6: { open: '12:00', close: '00:30' }  // Saturday — closes 12:30am Sun
+      0: { allDay: true },                    // Sunday
+      1: { open: '09:00', close: '22:00' },   // Monday
+      2: { open: '09:00', close: '22:00' },
+      3: { open: '09:00', close: '22:00' },
+      4: { open: '09:00', close: '22:00' },   // Thursday
+      5: { allDay: true },                    // Friday
+      6: { allDay: true }                     // Saturday
     }
   },
 
