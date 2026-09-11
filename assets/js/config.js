@@ -77,11 +77,19 @@ window.SALAMORA = {
     }
   },
 
-  // PLACEHOLDER — confirm actual coverage + whether fees/minimums apply.
-  deliveryAreas: [
-    'Jabi', 'Utako', 'Wuse 2', 'Maitama', 'Central Area', 'Garki',
-    'Gwarinpa', 'Life Camp', 'Katampe', 'Asokoro', 'Jahi', 'Mabushi'
-  ],
+  /* ---------------------------------------------------------------
+     DELIVERY AREAS
+     ---------------------------------------------------------------
+     Deliberately empty. The previous list of twelve Abuja districts was
+     invented and never confirmed, and promising delivery to somewhere
+     you do not serve costs more than saying nothing.
+
+     Add the real areas here and the footer renders them automatically:
+       deliveryAreas: ['Jabi', 'Utako', 'Wuse 2']
+     Leave it empty and the footer instead invites the customer to ask
+     on WhatsApp.
+  --------------------------------------------------------------- */
+  deliveryAreas: [],
 
   // Shown in the hero ticker.
   ticker: [
@@ -90,6 +98,6 @@ window.SALAMORA = {
     'Shawarma off the hot plate',
     'Shisha by the pot',
     'Breakfast served daily',
-    'Delivery across Abuja'
+    'Ask us about delivery'
   ]
 };

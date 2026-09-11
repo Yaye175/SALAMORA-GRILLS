@@ -663,7 +663,17 @@
     }
 
     var areas = $('#areas');
-    if (areas) areas.innerHTML = CFG.deliveryAreas.map(function (a) { return '<li>' + a + '</li>'; }).join('');
+    // Only claim coverage we actually have. With no confirmed areas the
+    // footer invites the customer to ask rather than listing districts.
+    if (areas) {
+      var list = CFG.deliveryAreas || [];
+      if (list.length) {
+        areas.innerHTML = list.map(function (a) { return '<li>' + a + '</li>'; }).join('');
+        var hd = $('#areasHd'); if (hd) hd.textContent = 'We deliver to';
+      } else {
+        areas.remove();
+      }
+    }
 
     var yr = $('#yr'); if (yr) yr.textContent = new Date().getFullYear();
   }
