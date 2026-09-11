@@ -39,7 +39,6 @@ What is still unconfirmed:
 | What | Where | Risk if shipped as-is |
 |---|---|---|
 | Dish descriptions | `menu.js` → `desc` | Written for the site, never checked with the kitchen |
-| Delivery areas | `config.js` → `deliveryAreas` | Implied coverage that may not exist |
 | Map pin | `config.js` → `mapQuery` | A text search, not surveyed co-ordinates — Google may drop the pin on a neighbouring unit |
 | Catering claims | `index.html` | "From 10 guests", "48h notice" were invented and need confirming |
 
@@ -122,8 +121,14 @@ Hours are evaluated in **Africa/Lagos**, not the visitor's timezone — someone
 browsing from London sees Abuja's open/closed state. Verified against six cases
 including both sides of midnight and a non-Nigerian browser timezone.
 
-**Phone, WhatsApp, Instagram, delivery areas** → `config.js`. The phone appears
-in several places and is substituted at runtime; change it once.
+**Phone, WhatsApp, Instagram** → `config.js`. The phone appears in several
+places and is substituted at runtime; change it once.
+
+**Delivery areas** → `config.js` → `deliveryAreas`, currently empty on purpose.
+The earlier list of twelve Abuja districts was invented, and promising delivery
+somewhere you do not serve costs more than saying nothing. Add real areas and
+the footer renders them under "We deliver to"; leave it empty and the footer
+invites the customer to ask on WhatsApp instead. Both states are tested.
 
 ---
 
