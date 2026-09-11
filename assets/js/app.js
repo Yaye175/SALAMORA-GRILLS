@@ -554,7 +554,9 @@
     var checks = [
       ['#ldName',   function (v) { return v.trim().length >= 2 ? '' : 'Tell us who to call you.'; }],
       ['#ldPhone',  function (v) { return v.replace(/\D/g, '').length >= 10 ? '' : 'Enter a reachable phone number.'; }],
-      ['#ldGuests', function (v) { return (+v >= 10) ? '' : 'Minimum 10 guests for catering.'; }]
+      // No invented minimum: the kitchen has never set one, so the form must
+      // not turn away a party of eight. Just needs to be a real number.
+      ['#ldGuests', function (v) { return (+v >= 1) ? '' : 'Roughly how many people?'; }]
     ];
 
     checks.forEach(function (c) {
