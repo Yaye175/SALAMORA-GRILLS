@@ -19,6 +19,7 @@ assets/js/menu.js         ← menu items, prices, platter-builder options
 assets/js/app.js          behaviour
 assets/fonts/             self-hosted woff2
 assets/favicon.svg
+robots.txt                crawler block — remove at launch
 
 tests/a11y.mjs            accessibility check (dev only)
 .github/workflows/        CI
@@ -175,6 +176,34 @@ Modern evergreen browsers. Uses `:has()`, `IntersectionObserver`,
 `scroll-snap`. No polyfills, no transpiler. If a meaningful share of your traffic
 is on old Android WebView, the side-selection highlight (`:has()`) degrades to an
 unstyled-but-working checkbox — the builder still calculates correctly.
+
+## Deploying to GitHub Pages
+
+`.github/workflows/pages.yml` publishes the site on every push to `main`, and
+on demand from any branch (Actions → Deploy to GitHub Pages → Run workflow).
+
+**One manual step first, which no workflow can do for you:** repo Settings →
+Pages → Source → **GitHub Actions**. Until that is set, the deploy job fails
+with a "Pages is not enabled" error.
+
+Pages on a private repository requires a paid GitHub plan. On the free tier the
+repository has to be public for Pages to work — which puts the source, and the
+unverified prices, on the open internet.
+
+**A Pages site is publicly reachable either way.** Making the repository private
+does not make the published site private; only GitHub Enterprise Cloud can put
+access control in front of Pages. So while the menu and pricing are still
+placeholder data, two guards ship with the site:
+
+- `robots.txt` disallows all crawlers
+- `index.html` carries `<meta name="robots" content="noindex, nofollow">`
+
+The deploy job asserts both are present and **fails the build if either is
+missing**, so unverified content cannot reach a search index by accident.
+Delete the file and the tag at launch, once the content is real.
+
+The job publishes `index.html`, `assets/` and `robots.txt` only. `README.md`,
+`package.json`, `tests/` and `.github/` stay off the public URL.
 
 ## The accessibility check
 

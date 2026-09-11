@@ -1,0 +1,65 @@
+name: Deploy to GitHub Pages
+
+# Requires a one-time manual step: repo Settings → Pages → Source =
+# "GitHub Actions". Nothing here can enable that; it is a repo setting.
+#
+# Note that a GitHub Pages site is served on the public internet even when
+# the repository is private. robots.txt and the noindex meta tag in
+# index.html keep it out of search results while the menu and pricing are
+# still unverified placeholder data. Remove both at launch.
+on:
+  push:
+    branches: [main]
+  # Lets you publish a preview from a feature branch before merging:
+  # Actions → Deploy to GitHub Pages → Run workflow → pick the branch.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never cancel a deploy midway — a half-published site is worse than a stale
+# one. Queue instead.
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Assemble site
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Publish only what the browser needs. README.md, package.json, tests/
+      # and .github/ are repo furniture and have no business on a public URL.
+      - name: Stage site files
+        run: |
+          mkdir -p _site
+          cp index.html robots.txt _site/
+          cp -r assets _site/
+          echo "Staged:"
+          find _site -type f | sort
+
+      - name: Confirm the prototype guard is present
+        run: |
+          grep -q 'name="robots" content="noindex' _site/index.html \
+            || { echo "::error::noindex meta tag missing — refusing to publish unverified content"; exit 1; }
+          grep -q 'Disallow: /' _site/robots.txt \
+            || { echo "::error::robots.txt is not disallowing crawlers"; exit 1; }
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
