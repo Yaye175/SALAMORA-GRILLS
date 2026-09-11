@@ -1,6 +1,6 @@
-# Salamora Grills — website prototype
+# Salamora Grills and Café — website
 
-Open-fire grill house, 4 Amisi Musa St, Jabi, Abuja.
+Grills and café at Dreamland Suites, Jabi Lake, Utako, Abuja.
 
 Static site. No build step and nothing to install to run it — open `index.html`
 or drop the folder on any static host (Netlify, Vercel, Cloudflare Pages, GitHub
@@ -30,46 +30,47 @@ package.json              dev dependencies for the check above — not shipped
 
 ## ⚠ Read this before the site goes anywhere public
 
-**Nothing on this site was supplied by the business.** The Instagram account
-(`@salamoragrills.ng`) was unreachable from the build environment, so no real
-menu, pricing, or hours could be pulled. Everything below is invented to make
-the layout work and **must be replaced**:
+Menu content is now **real**. Item names and prices were transcribed from the
+menu card published on @salamoragrills.ng ("Mora Menu", 22 June), and the
+address is confirmed as Dreamland Suites, Jabi Lake, Utako.
+
+What is still unconfirmed:
 
 | What | Where | Risk if shipped as-is |
 |---|---|---|
-| Every price (26 menu items + builder) | `menu.js` | You are publicly quoting prices the kitchen never set |
-| Every dish name and description | `menu.js` | Advertising food you may not serve |
-| Opening hours, all 7 days | `config.js` → `hours` | The live "Open now" badge will lie to customers |
-| Delivery areas | `config.js` → `deliveryAreas` | Implied coverage you may not offer |
-| Map pin (`mapQuery` is a text search, not surveyed co-ordinates) | `config.js` → `location` | Google may drop the pin on a neighbouring building |
+| **Opening hours, all 7 days** | `config.js` → `hours` | The live "Open now" badge will lie to customers. This is the biggest remaining gap. |
+| Dish descriptions | `menu.js` → `desc` | Written for the site, never checked with the kitchen |
+| Delivery areas | `config.js` → `deliveryAreas` | Implied coverage that may not exist |
+| Map pin | `config.js` → `mapQuery` | A text search, not surveyed co-ordinates — Google may drop the pin on a neighbouring unit |
+| Catering claims | `index.html` | "From 10 guests", "48h notice" were invented and need confirming |
 
-Confirmed from the brief and left as given: the street address, the phone number
-`+234 703 303 3496`, and the Instagram handle. **Verify the phone number
-anyway** — it is the only ordering channel on the entire site.
+The footer carries a `content & pricing unverified` stamp, and `robots.txt`
+plus a `noindex` meta tag keep the site out of search results. Clear the table
+above, then remove all three.
 
-The footer carries a `content & pricing unverified` stamp. Remove it only once
-the table above is done.
+**An earlier version of this site carried an entirely fabricated menu** —
+seafood platters, suya and asun at ₦18,000–₦64,000 — and the address
+"4 Amisi Musa St, Jabi". None of it was real. If any of that resurfaces in a
+branch or cache, it is wrong.
 
----
+## Photography
 
-## The one thing that would most improve this site
+Ten photographs from the client's Instagram are in `assets/img/`, cropped free
+of Instagram UI, resized to 1000px wide and saved as progressive JPEG (73–240KB).
 
-**Food photography.** Every dish tile currently renders a styled "Photo pending"
-placeholder. For a grill house, photos are not decoration — they are the
-conversion mechanism. Ten good shots of the signature platters would do more for
-orders than any further code.
+Nine dishes carry a photo. A photo is only attached to the dish it actually
+shows — the three wing variants share a recipe but not a preparation, so only
+Crispy Wings carries the wings shot. Everything else renders a styled
+"Photo pending" placeholder rather than a misleading image.
 
-To add one: put the file in `assets/img/` and set the path in `menu.js`.
+To add one: drop the file in `assets/img/` and set the path in `menu.js`.
 
 ```js
-{ cat: 'platters', name: 'The Salamora Board', price: 64000,
-  img: 'assets/img/salamora-board.jpg', ... }
+{ cat: 'burgers', name: 'Loaded Fries', price: 8000,
+  img: 'assets/img/loaded-fries.jpg', ... }
 ```
 
-The placeholder disappears and a lazy-loaded `<img>` takes its place. No other
-change needed. Shoot landscape, roughly 3:2, and keep files under ~200 KB.
-
----
+Shoot landscape where you can, and keep files under ~250KB.
 
 ## How ordering works
 
@@ -99,10 +100,10 @@ WhatsApp — so an abandoned chat still leaves you a contact.
 **Prices, dishes, categories** → `assets/js/menu.js`. Items render automatically
 into the right tab; category tabs come from the `categories` array.
 
-**Platter builder** → `menu.js` → `builder`. Protein sets the base price, sides
-carry an upcharge (`price: 0` shows as "Included"), spice is free. Change
-`rules.sidesRequired` to allow a different number of sides — the counter, the
-locking, and the validation all follow it.
+**Combo builder** → `menu.js` → `builder`. It mirrors the Mora Meat Combos
+section of the real menu: any base plus Mora Meat or Chicken is ₦8,000, the
+two-protein "Mixture of 2" adds ₦500, and extras are priced from the Extras
+list. Add a base, protein or extra to the arrays and the widget follows.
 
 **Hours** → `config.js` → `hours.week`. 24-hour `"HH:MM"`. Set a day to `null`
 for closed. If `close` is earlier than `open` it is treated as closing after
@@ -121,21 +122,25 @@ in several places and is substituted at runtime; change it once.
 ## Notes on decisions you might want to revisit
 
 **The hero has no video.** The brief asked for a video/carousel banner. No footage
-existed, and a hero video is an expensive default for this audience — a 3–5 MB
+exists, and a hero video is an expensive default for this audience — a 3–5 MB
 autoplaying file on Abuja mobile data, before the customer has seen a single
 price. What is there instead is a CSS-rendered ember bed (0 KB, animated, honours
-`prefers-reduced-motion`) plus a swipeable carousel of signature dishes. If real
-footage arrives, the hero is the place to put it — but measure the bounce rate
-before and after.
+`prefers-reduced-motion`) plus a swipeable carousel of the seven signature
+dishes, now with real photography. If footage arrives, the hero is the place to
+put it — but measure bounce rate before and after.
 
 **The map does not load until tapped.** A Google Maps iframe is a heavy
 third-party embed that also tracks the visitor. It now loads behind a styled
 tap target, and "Get directions" is always live as a plain link — which is what
 most people on a phone actually use.
 
-**Menu opens on "Grill Platters & Combos", not "Everything".** Showing all 26
-items first produced a 30,000-pixel-tall mobile page. Platters are the
-highest-value category; "Everything" is one tap away at the end of the tab row.
+**Menu opens on "Mora Meat Combos", not "Everything".** It is the signature
+line, has the most photography, and keeps the initial mobile page short.
+"Everything" sits last in the tab row, one tap away.
+
+**The builder follows the real menu.** An earlier version asked for a protein,
+two sides and a pepper level — a structure the kitchen does not sell. It now
+mirrors the Mora Meat Combos section exactly.
 
 **The brand orange was split in two.** `#FF5722` as specified is 3.16:1 against
 white — below the WCAG AA minimum of 4.5:1 — so small white text on an orange
@@ -150,10 +155,16 @@ desktop).
 
 ## Fonts
 
-Anton (display), Manrope (body), JetBrains Mono (prices and labels), self-hosted
+Bricolage Grotesque (display), Public Sans (body), JetBrains Mono (prices and
+labels), self-hosted
 from `assets/fonts/` rather than loaded from Google. That removes two
 render-blocking third-party round trips on first paint and keeps the typography
-if Google Fonts is slow or blocked. Total ~144 KB across three families.
+if Google Fonts is slow or blocked. Total ~284 KB across three families.
+
+Bricolage Grotesque is a variable face. Width and weight are set per use through
+three tokens in `styles.css` — `--d-hero` (tall and tight, for headlines),
+`--d-title` (wider, for card and section titles) and `--d-ui` (small labels) —
+so one file covers every display size without loading extra weights.
 
 **`latin-ext` is not optional here.** The naira sign ₦ (U+20A6) sits in Google's
 `latin-ext` subset, not `latin`. A latin-only build renders every price's
@@ -163,7 +174,7 @@ currency symbol from a system fallback font. Both subsets are included, and
 To regenerate after a font change, fetch the Google CSS with a modern browser
 User-Agent (to get woff2 rather than ttf), keep the `latin` and `latin-ext`
 blocks, download each file into `assets/fonts/`, and rewrite `assets/css/fonts.css`
-with local `src:` paths. Manrope and JetBrains Mono are variable fonts — one file
+with local `src:` paths. All three families are variable fonts — one file
 covers the whole weight axis, so declare a `font-weight` range instead of
 downloading a copy per weight.
 
@@ -245,8 +256,8 @@ verdict.
 
 Checked in a real browser at 390 px and 1440 px:
 
-- Menu tab filtering, dish → WhatsApp handoff
-- Builder maths, the two-side limit and locking, quantity, WhatsApp payload
+- Menu tab filtering across 7 categories, dish → WhatsApp handoff
+- Combo builder maths (base + protein + extras + quantity) and WhatsApp payload
 - Catering form validation (3 required fields)
 - Opening-hours logic across midnight and from a non-Nigerian timezone (6 cases)
 - ₦ rendering from the self-hosted webfont, not a fallback

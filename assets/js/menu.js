@@ -1,147 +1,174 @@
 /* =============================================================
-   SALAMORA GRILLS — MENU DATA
+   SALAMORA GRILLS AND CAFÉ — MENU DATA
    -------------------------------------------------------------
-   ⚠  ALL PRICES BELOW ARE PLACEHOLDERS.
-      They were invented for layout purposes only. Publishing them
-      unchanged means quoting customers prices the kitchen never set.
-      Replace every `price` before this site touches a live domain.
+   Names and prices are transcribed from the menu card published on
+   @salamoragrills.ng ("Mora Menu", 22 June). Dish DESCRIPTIONS were
+   written for the website and have NOT been confirmed by the kitchen —
+   check them before launch.
 
-   `img` is intentionally null everywhere. No real photography was
-   supplied. The site renders a styled placeholder tile instead of a
-   broken image. Drop a path in (e.g. 'assets/img/mixed-grill.jpg')
-   and it renders automatically.
+   `img: null` means no photograph was supplied for that item; the site
+   renders a styled placeholder rather than a broken image. Drop a path
+   in and it renders automatically.
+
+   A photo is only attached to the dish it actually shows. The three
+   wing variants share a recipe but not a preparation, so only Crispy
+   Wings carries the wings photograph.
    ============================================================= */
 
 window.SALAMORA_MENU = {
 
   categories: [
-    { id: 'platters', label: 'Grill Platters & Combos', short: 'Platters' },
-    { id: 'seafood',  label: 'Fish & Seafood',          short: 'Seafood'  },
-    { id: 'sides',    label: 'Sides & Bites',           short: 'Sides'    },
-    { id: 'drinks',   label: 'Drinks & Mocktails',      short: 'Drinks'   }
+    { id: 'combos',    label: 'Mora Meat Combos',      short: 'Combos'    },
+    { id: 'shawarma',  label: 'Shawarma',              short: 'Shawarma'  },
+    { id: 'burgers',   label: 'Burgers, Wings & Fries', short: 'Burgers'  },
+    { id: 'rice',      label: 'Mora Rice Specials',    short: 'Rice'      },
+    { id: 'breakfast', label: 'Breakfast',             short: 'Breakfast' },
+    { id: 'lounge',    label: 'Drinks & Lounge',       short: 'Drinks'    },
+    { id: 'extras',    label: 'Extras',                short: 'Extras'    }
   ],
 
   items: [
-    /* ---------- GRILL PLATTERS & COMBOS ---------- */
+    /* ---------- MORA MEAT COMBOS — all ₦8,000 ---------- */
     {
-      cat: 'platters', name: 'The Salamora Board', price: 64000,
-      serves: '4–6 guests', count: 9,
-      desc: 'Whole chicken, beef suya, gizzard, peppered snail, asun, two proteins of the day, yam fries, plantain and a bowl of ata dindin.',
-      tags: ['signature'], img: null, featured: true
+      cat: 'combos', name: 'Golden Yam & Mora Meat', price: 8000,
+      serves: 'Mora Meat or Chicken', count: 2,
+      desc: 'Golden fried yam with peppered Mora Meat, onions and sweet pepper.',
+      tags: ['signature'], img: 'assets/img/golden-yam-mora-meat.jpg', featured: true
     },
     {
-      cat: 'platters', name: 'Ember Duo Platter', price: 32500,
-      serves: '2 guests', count: 6,
-      desc: 'Half chicken, beef skewers, spiced gizzard, yam fries, plantain and house pepper dip.',
-      tags: ['bestseller'], img: null, featured: true
+      cat: 'combos', name: 'Chips & Mora Meat', price: 8000,
+      serves: 'Mora Meat or Chicken', count: 2,
+      desc: 'A plate of hot chips alongside peppered Mora Meat in its own sauce.',
+      tags: ['bestseller'], img: 'assets/img/chips-mora-meat.jpg', featured: true
     },
     {
-      cat: 'platters', name: 'Charcoal Chicken Combo', price: 18500,
-      serves: '1 guest', count: 4,
-      desc: 'Quarter chicken flame-grilled to order, yam fries, plantain, pepper dip.',
+      cat: 'combos', name: 'Noodles & Mora Meat', price: 8000,
+      serves: 'Mora Meat or Chicken', count: 2,
+      desc: 'Stir-fried noodles with vegetables and peppered Mora Meat. Add a fried egg for ₦600.',
+      tags: [], img: 'assets/img/noodles-mora-meat.jpg', featured: true
+    },
+    {
+      cat: 'combos', name: 'Plantain & Mora Meat', price: 8000,
+      serves: 'Mora Meat or Chicken', count: 2,
+      desc: 'Sweet fried plantain with peppered Mora Meat.',
       tags: [], img: null
     },
     {
-      cat: 'platters', name: 'Beef & Gizzard Skewers', price: 21000,
-      serves: '1–2 guests', count: 5,
-      desc: 'Six skewers over open coals, dusted in house yaji, onions and fresh tomato.',
-      tags: [], img: null
-    },
-    {
-      cat: 'platters', name: 'Goat Meat Asun Platter', price: 27500,
-      serves: '2 guests', count: 5,
-      desc: 'Smoked goat tossed in scotch bonnet and onion, served with yam fries and plantain.',
-      tags: ['hot'], img: null
-    },
-    {
-      cat: 'platters', name: 'Full Bird Family Grill', price: 45000,
-      serves: '3–4 guests', count: 7,
-      desc: 'Whole spatchcocked chicken, double yam fries, double plantain, coleslaw and two dips.',
+      cat: 'combos', name: 'Mixture of 2', price: 8500,
+      serves: 'Mora Meat & Chicken', count: 2,
+      desc: 'Can’t choose? Both proteins on one plate, with the base of your choice.',
       tags: [], img: null
     },
 
-    /* ---------- FISH & SEAFOOD ---------- */
+    /* ---------- SHAWARMA ---------- */
     {
-      cat: 'seafood', name: 'Grilled Whole Croaker', price: 23500,
-      serves: '1–2 guests', count: 3,
-      desc: 'Whole croaker scored and grilled over charcoal, stuffed with onion and basil, plantain on the side.',
-      tags: ['signature'], img: null, featured: true
+      cat: 'shawarma', name: 'Beef Shawarma', price: 6000,
+      serves: '1 wrap', count: 1,
+      desc: 'Toasted wrap with beef, sausage, cabbage and house sauce. Extra cheese ₦2,000.',
+      tags: ['bestseller'], img: 'assets/img/shawarma.jpg', featured: true
     },
     {
-      cat: 'seafood', name: 'Point & Kill Catfish', price: 19500,
-      serves: '1–2 guests', count: 3,
-      desc: 'Fresh catfish chosen from the tank, peppered and grilled, served with ata dindin and yam fries.',
-      tags: ['hot'], img: null
+      cat: 'shawarma', name: 'Chicken Shawarma', price: 6000,
+      serves: '1 wrap', count: 1,
+      desc: 'Toasted wrap with chicken, sausage, cabbage and house sauce. Extra cheese ₦2,000.',
+      tags: [], img: 'assets/img/shawarma.jpg'
     },
+
+    /* ---------- BURGERS, WINGS & FRIES ---------- */
     {
-      cat: 'seafood', name: 'Grilled Tilapia', price: 17000,
-      serves: '1 guest', count: 3,
-      desc: 'Whole tilapia, ginger-garlic marinade, fresh pepper sauce, plantain.',
-      tags: [], img: null
-    },
-    {
-      cat: 'seafood', name: 'Peppered Prawns', price: 26000,
-      serves: '1–2 guests', count: 2,
-      desc: 'King prawns seared over fire in scotch bonnet butter with charred lime.',
-      tags: ['hot'], img: null
-    },
-    {
-      cat: 'seafood', name: 'Peppered Snail', price: 15500,
+      cat: 'burgers', name: 'Lounge Burger & Fries', price: 12000,
       serves: '1 guest', count: 2,
-      desc: 'Giant land snail, grilled and tossed in Salamora pepper mix.',
+      desc: 'Beef patty, melted cheese, house slaw and lettuce, with a basket of fries.',
+      tags: ['signature'], img: 'assets/img/lounge-burger.jpg', featured: true
+    },
+    {
+      cat: 'burgers', name: 'Crispy Wings & Fries', price: 10500,
+      serves: '1 guest', count: 2,
+      desc: 'Seasoned crispy wings with sweet peppers, fries and a house dip.',
+      tags: [], img: 'assets/img/crispy-wings.jpg'
+    },
+    {
+      cat: 'burgers', name: 'BBQ Wings & Fries', price: 10500,
+      serves: '1 guest', count: 2,
+      desc: 'Grilled wings glazed in barbecue sauce, served with fries.',
+      tags: [], img: null
+    },
+    {
+      cat: 'burgers', name: 'Spicy Wings & Fries', price: 10500,
+      serves: '1 guest', count: 2,
+      desc: 'Wings in a hot pepper glaze, served with fries.',
+      tags: ['hot'], img: null
+    },
+    {
+      cat: 'burgers', name: 'Loaded Fries', price: 8000,
+      serves: '1 guest', count: 1,
+      desc: 'Fries loaded with sauce and toppings.',
       tags: [], img: null
     },
 
-    /* ---------- SIDES & BITES ---------- */
-    { cat: 'sides', name: 'Yam Fries',          price: 4500,  serves: 'Side', count: 1, desc: 'Thick-cut yam, twice fried, yaji dusted.', tags: ['vegetarian'], img: null },
-    { cat: 'sides', name: 'Fried Plantain',     price: 3800,  serves: 'Side', count: 1, desc: 'Ripe dodo, caramelised at the edges.', tags: ['vegetarian'], img: null },
-    { cat: 'sides', name: 'Beef Suya (Wrap)',   price: 7500,  serves: 'Bite', count: 1, desc: 'Thin-sliced beef, house yaji, onion, cabbage, wrapped hot.', tags: ['bestseller'], img: null },
-    { cat: 'sides', name: 'Asun (Small Bowl)',  price: 10500, serves: 'Bite', count: 1, desc: 'Smoked peppered goat, onion and scotch bonnet.', tags: ['hot'], img: null },
-    { cat: 'sides', name: 'Peppered Gizzard',   price: 8000,  serves: 'Bite', count: 1, desc: 'Grilled gizzard in thick ata dindin.', tags: [], img: null },
-    { cat: 'sides', name: 'Grilled Corn',       price: 2500,  serves: 'Side', count: 1, desc: 'Charred sweetcorn, butter and yaji.', tags: ['vegetarian'], img: null },
-    { cat: 'sides', name: 'Coleslaw',           price: 2500,  serves: 'Side', count: 1, desc: 'Cold, crunchy, cuts the heat.', tags: ['vegetarian'], img: null },
-    { cat: 'sides', name: 'Jollof Rice',        price: 5500,  serves: 'Side', count: 1, desc: 'Smoky party-style jollof cooked over wood.', tags: [], img: null },
+    /* ---------- MORA RICE SPECIALS ---------- */
+    {
+      cat: 'rice', name: 'Chinese Rice, Mora Meat & Plantain', price: 14000,
+      serves: '1 guest', count: 3,
+      desc: 'Wok-fried Chinese rice with peppered Mora Meat and sweet fried plantain.',
+      tags: ['signature'], img: 'assets/img/chinese-rice.jpg', featured: true
+    },
+    {
+      cat: 'rice', name: 'Rice & Mora Chicken', price: 12000,
+      serves: 'Chicken or Mora Meat', count: 2,
+      desc: 'Rice served with Mora Chicken. Mora Meat available at the same price.',
+      tags: [], img: null
+    },
 
-    /* ---------- DRINKS & MOCKTAILS ---------- */
-    { cat: 'drinks', name: 'Zobo Cooler',        price: 3000, serves: '400ml', count: 1, desc: 'Hibiscus, pineapple, ginger, clove. Served over ice.', tags: ['bestseller'], img: null },
-    { cat: 'drinks', name: 'Chapman Classic',    price: 4500, serves: '400ml', count: 1, desc: 'Grenadine, citrus, bitters, cucumber ribbon.', tags: [], img: null },
-    { cat: 'drinks', name: 'Smoked Tiger Nut',   price: 4000, serves: '350ml', count: 1, desc: 'Kunu aya blended with date and a whisper of smoke.', tags: [], img: null },
-    { cat: 'drinks', name: 'Ember Sour (Mocktail)', price: 5500, serves: '300ml', count: 1, desc: 'Charred pineapple, lime, scotch bonnet syrup, egg-white foam.', tags: ['hot'], img: null },
-    { cat: 'drinks', name: 'Palm Wine Spritz',   price: 5000, serves: '300ml', count: 1, desc: 'Fresh palm wine, soda, lime. Non-alcoholic option available.', tags: [], img: null },
-    { cat: 'drinks', name: 'Bottled Water',      price: 1000, serves: '75cl', count: 1, desc: 'Chilled.', tags: [], img: null },
-    { cat: 'drinks', name: 'Soft Drinks',        price: 1200, serves: '50cl', count: 1, desc: 'Coke, Fanta, Sprite, Malt.', tags: [], img: null }
+    /* ---------- BREAKFAST ---------- */
+    {
+      cat: 'breakfast', name: 'English Breakfast', price: 14000,
+      serves: '1 guest', count: 6,
+      desc: 'Pancakes or waffles, sausage, scrambled eggs, baked beans, grilled tomato, maple syrup and fries.',
+      tags: ['signature'], img: 'assets/img/english-breakfast.jpg', featured: true
+    },
+
+    /* ---------- DRINKS & LOUNGE ---------- */
+    { cat: 'lounge', name: 'Shisha',      price: 10000, serves: 'Per pot', count: 1, desc: 'One pot, for the table.', tags: ['signature'], img: null },
+    { cat: 'lounge', name: 'Arabian Tea', price: 5000,  serves: 'Hot',     count: 1, desc: 'Spiced tea, served hot.', tags: [], img: null },
+    { cat: 'lounge', name: 'Chapman',     price: 2000,  serves: 'Chilled', count: 1, desc: 'The house classic — grenadine, citrus and bitters.', tags: ['bestseller'], img: null },
+    { cat: 'lounge', name: 'Coke',        price: 2000,  serves: 'Chilled', count: 1, desc: 'Served cold.', tags: [], img: null },
+    { cat: 'lounge', name: 'Fanta',       price: 2000,  serves: 'Chilled', count: 1, desc: 'Served cold.', tags: [], img: null },
+    { cat: 'lounge', name: 'Sprite',      price: 2000,  serves: 'Chilled', count: 1, desc: 'Served cold.', tags: [], img: null },
+    { cat: 'lounge', name: 'Water',       price: 1000,  serves: 'Chilled', count: 1, desc: 'Bottled water.', tags: [], img: null },
+
+    /* ---------- EXTRAS ---------- */
+    { cat: 'extras', name: 'Extra Mora Meat', price: 5000, serves: 'Add-on', count: 1, desc: 'An extra portion of peppered Mora Meat.', tags: [], img: null },
+    { cat: 'extras', name: 'Extra Rice',      price: 6000, serves: 'Add-on', count: 1, desc: 'An extra portion of rice.', tags: [], img: null },
+    { cat: 'extras', name: 'Extra Cheese',    price: 2000, serves: 'Shawarma add-on', count: 1, desc: 'Extra cheese in your shawarma.', tags: [], img: null },
+    { cat: 'extras', name: 'Syrup',           price: 2000, serves: 'Caramel · Strawberry · Chocolate', count: 1, desc: 'Choose your flavour.', tags: [], img: null },
+    { cat: 'extras', name: 'Sausage',         price: 1000, serves: 'Add-on', count: 1, desc: 'One sausage.', tags: [], img: null },
+    { cat: 'extras', name: 'Extra Egg',       price: 600,  serves: 'Add-on', count: 1, desc: 'One fried egg.', tags: [], img: null }
   ],
 
   /* =============================================================
-     CUSTOM PLATTER BUILDER — PLACEHOLDER PRICING
-     Base price comes from the protein. Sides carry an upcharge.
-     Spice level is free.
+     BUILD YOUR MORA COMBO
+     -------------------------------------------------------------
+     This mirrors the Mora Meat Combos section of the real menu:
+     any base + Mora Meat or Chicken is ₦8,000, and the two-protein
+     "Mixture of 2" is ₦8,500. Extras are priced from the Extras list.
      ============================================================= */
   builder: {
-    rules: { sidesRequired: 2 },
+    bases: [
+      { id: 'yam',      name: 'Golden Yam', note: 'Fried, dusted',  price: 8000 },
+      { id: 'chips',    name: 'Chips',      note: 'Hot and salted', price: 8000 },
+      { id: 'plantain', name: 'Plantain',   note: 'Sweet dodo',     price: 8000 },
+      { id: 'noodles',  name: 'Noodles',    note: 'Stir-fried',     price: 8000 }
+    ],
     proteins: [
-      { id: 'chicken',  name: 'Charcoal Chicken',   note: 'Quarter bird',   price: 14000 },
-      { id: 'beef',     name: 'Beef Suya Skewers',  note: '4 skewers',      price: 15500 },
-      { id: 'goat',     name: 'Goat Asun',          note: 'Smoked & peppered', price: 18000 },
-      { id: 'croaker',  name: 'Whole Croaker',      note: 'Grilled whole',  price: 21000 },
-      { id: 'catfish',  name: 'Catfish',            note: 'Point & kill',   price: 17500 },
-      { id: 'prawns',   name: 'King Prawns',        note: 'Seared in butter', price: 23000 }
+      { id: 'mora',    name: 'Mora Meat',   note: 'Peppered beef',   price: 0   },
+      { id: 'chicken', name: 'Chicken',     note: 'Mora Chicken',    price: 0   },
+      { id: 'both',    name: 'Mixture of 2', note: 'Both proteins',  price: 500 }
     ],
-    sides: [
-      { id: 'yam',      name: 'Yam Fries',      price: 0 },
-      { id: 'plantain', name: 'Fried Plantain', price: 0 },
-      { id: 'jollof',   name: 'Jollof Rice',    price: 1500 },
-      { id: 'corn',     name: 'Grilled Corn',   price: 0 },
-      { id: 'slaw',     name: 'Coleslaw',       price: 0 },
-      { id: 'gizzard',  name: 'Peppered Gizzard', price: 3000 },
-      { id: 'salad',    name: 'Garden Salad',   price: 1000 },
-      { id: 'chips',    name: 'Potato Chips',   price: 500 }
-    ],
-    spice: [
-      { id: 'mild',   name: 'Mild',        note: 'Smoke, no burn',      level: 1 },
-      { id: 'medium', name: 'Medium',      note: 'House standard',      level: 2 },
-      { id: 'hot',    name: 'Hot',         note: 'Scotch bonnet lean',  level: 3 },
-      { id: 'inferno',name: 'Salamora Inferno', note: 'Ask for water',  level: 4 }
+    extras: [
+      { id: 'egg',     name: 'Extra Egg',       price: 600  },
+      { id: 'sausage', name: 'Sausage',         price: 1000 },
+      { id: 'meat',    name: 'Extra Mora Meat', price: 5000 }
     ]
   }
 };

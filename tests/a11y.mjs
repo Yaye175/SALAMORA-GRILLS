@@ -70,10 +70,10 @@ const SCENARIOS = [
     },
   },
   {
-    name: 'mobile · seafood tab',
+    name: 'mobile · burgers tab',
     viewport: { width: 390, height: 844 },
     async setup(page) {
-      await page.click('.tab[data-cat="seafood"]');
+      await page.click('.tab[data-cat="burgers"]');
       await page.waitForTimeout(250);
     },
   },
@@ -82,12 +82,12 @@ const SCENARIOS = [
     viewport: { width: 1440, height: 900 },
   },
   {
-    name: 'desktop · builder with selections',
+    name: 'desktop · combo builder with selections',
     viewport: { width: 1440, height: 900 },
     async setup(page) {
+      await page.locator('#optBase .opt').nth(0).click();
       await page.locator('#optProtein .opt').nth(2).click();
-      await page.locator('#optSides .opt').nth(0).click();
-      await page.locator('#optSides .opt').nth(2).click();
+      await page.locator('#optExtras .opt').nth(0).click();
       await page.waitForTimeout(250);
     },
   },
