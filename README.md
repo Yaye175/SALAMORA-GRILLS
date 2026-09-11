@@ -40,7 +40,6 @@ What is still unconfirmed:
 |---|---|---|
 | Dish descriptions | `menu.js` → `desc` | Written for the site, never checked with the kitchen |
 | Map pin | `config.js` → `mapQuery` | A text search, not surveyed co-ordinates — Google may drop the pin on a neighbouring unit |
-| Catering claims | `index.html` | "From 10 guests", "48h notice" were invented and need confirming |
 
 The footer carries a `content & pricing unverified` stamp, and `robots.txt`
 plus a `noindex` meta tag keep the site out of search results. Clear the table
