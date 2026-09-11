@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Salamora Grills — Sizzling BBQ &amp; Gourmet Grill Platters in Abuja</title>
+<meta name="description" content="Charcoal-fired grill platters, whole croaker, catfish, asun and suya in Jabi, Abuja. Order online via WhatsApp or book event catering.">
+<meta name="theme-color" content="#121212">
+
+<!-- PROTOTYPE GUARD — remove this tag and robots.txt at launch.
+     Prices, menu and hours are unverified placeholder data; keeping the
+     site out of search results until the business confirms them prevents
+     customers finding invented prices for a real restaurant. -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/favicon.svg">
+
+<meta property="og:type" content="restaurant">
+<meta property="og:title" content="Salamora Grills — Sizzling BBQ &amp; Gourmet Grill Platters in Abuja">
+<meta property="og:description" content="Open-fire grill house in Jabi, Abuja. Platters, seafood, suya, asun. Delivery across Abuja.">
+<meta property="og:locale" content="en_NG">
+
+<!-- Fonts are self-hosted: no third-party DNS + TLS round trip on first paint,
+     and the site keeps its typography if Google Fonts is slow or unreachable. -->
+<link rel="preload" href="assets/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<a class="skip" href="#menu">Skip to menu</a>
+
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ══════════════════ HEADER ══════════════════ -->
+<header class="hdr" id="hdr">
+  <div class="hdr__in">
+    <a class="logo" href="#top" aria-label="Salamora Grills, home">
+      <span class="logo__mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="logo__txt">Salamora<em>Grills</em></span>
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="#menu">Menu &amp; Platters</a>
+      <a href="#catering">Event Catering</a>
+      <a href="#location">Location</a>
+      <a class="btn btn--order nav__cta" href="#order" data-wa="header">Order Now</a>
+    </nav>
+
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="nav" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="hdr__status" id="hdrStatus" hidden></div>
+</header>
+
+<!-- ══════════════════ HERO ══════════════════ -->
+<main id="top">
+<section class="hero">
+  <div class="hero__fire" aria-hidden="true">
+    <span class="coal coal--1"></span>
+    <span class="coal coal--2"></span>
+    <span class="coal coal--3"></span>
+    <span class="shimmer"></span>
+  </div>
+  <div class="grate" aria-hidden="true"></div>
+
+  <div class="hero__in">
+    <p class="eyebrow"><span class="dot"></span> 4 Amisi Musa St · Jabi · Abuja</p>
+
+    <h1 class="hero__h1">
+      <span class="l1">Sizzling BBQ &amp;</span>
+      <span class="l2">Gourmet Grill</span>
+      <span class="l3">Platters<em> in Abuja</em></span>
+    </h1>
+
+    <p class="hero__sub">
+      Everything hits the open charcoal to order — whole croaker, goat asun,
+      beef suya and loaded platters built for sharing. Eat in at Jabi or get it
+      delivered across the city while it&rsquo;s still smoking.
+    </p>
+
+    <div class="hero__cta">
+      <a class="btn btn--order btn--lg" href="#order" data-wa="hero">
+        <svg viewBox="0 0 24 24" aria-hidden="true" class="ico"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.16c-.25.69-1.44 1.32-2 1.36-.51.04-1.16.06-1.87-.12-.43-.11-.99-.33-1.7-.64-2.99-1.29-4.95-4.3-5.1-4.5-.15-.2-1.22-1.62-1.22-3.09s.77-2.19 1.05-2.49c.27-.3.6-.37.8-.37h.57c.18 0 .43-.07.67.51.25.6.85 2.07.92 2.22.08.15.13.33.02.53-.1.2-.15.32-.3.5-.15.17-.32.39-.45.52-.15.15-.31.31-.13.61.17.3.77 1.27 1.66 2.06 1.14 1.02 2.1 1.33 2.4 1.48.3.15.47.13.65-.08.17-.2.75-.87.95-1.17.2-.3.4-.25.67-.15.27.1 1.72.81 2.02.96.3.15.5.22.57.35.07.12.07.71-.18 1.4Z"/></svg>
+        Order via WhatsApp
+      </a>
+      <a class="btn btn--ghost btn--lg" href="#menu">View Grill Menu</a>
+    </div>
+
+    <!-- Signature carousel -->
+    <div class="carousel" id="carousel" aria-roledescription="carousel" aria-label="Signature dishes">
+      <div class="carousel__track" id="carTrack" tabindex="0" role="group"
+           aria-label="Signature dishes, scrollable. Use left and right arrow keys."></div>
+      <div class="carousel__dots" id="carDots" role="tablist" aria-label="Choose dish"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ TICKER ══════════════════ -->
+<div class="ticker" aria-hidden="true"><div class="ticker__track" id="tickerTrack"></div></div>
+
+<!-- ══════════════════ MENU ══════════════════ -->
+<section class="sec sec--menu" id="menu">
+  <div class="wrap">
+    <header class="sec__hd">
+      <p class="kicker"><span class="dot"></span> The Menu</p>
+      <h2 class="sec__h2">Straight off<br><em>the coals</em></h2>
+      <p class="sec__lede">Tap a category. Tap a dish to drop it into a WhatsApp order.</p>
+    </header>
+
+    <div class="tabs" role="tablist" aria-label="Menu categories" id="tabs"></div>
+
+    <div class="menu__grid" id="menuGrid" aria-live="polite"></div>
+
+    <p class="note note--price">
+      <strong>Prototype notice —</strong> every price shown is placeholder data,
+      not a quote from the kitchen. Confirm current pricing on WhatsApp.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════════ BUILDER ══════════════════ -->
+<section class="sec sec--builder" id="builder">
+  <div class="wrap">
+    <header class="sec__hd">
+      <p class="kicker"><span class="dot"></span> Build Your Own</p>
+      <h2 class="sec__h2">Custom<br><em>platter</em></h2>
+      <p class="sec__lede">One protein. Two sides. Pick your heat. Price updates as you go.</p>
+    </header>
+
+    <form class="builder" id="builder" novalidate>
+      <div class="builder__cols">
+        <div class="builder__main">
+
+          <fieldset class="step" data-step="1">
+            <legend><span class="step__n">01</span> Choose your protein</legend>
+            <div class="opts opts--protein" id="optProtein"></div>
+          </fieldset>
+
+          <fieldset class="step" data-step="2">
+            <legend>
+              <span class="step__n">02</span> Pick 2 sides
+              <span class="step__count" id="sideCount">0 / 2</span>
+            </legend>
+            <div class="opts opts--side" id="optSides"></div>
+            <p class="step__hint" id="sideHint">Choose exactly two.</p>
+          </fieldset>
+
+          <fieldset class="step" data-step="3">
+            <legend><span class="step__n">03</span> Pepper level</legend>
+            <div class="opts opts--spice" id="optSpice"></div>
+          </fieldset>
+        </div>
+
+        <!-- Live total -->
+        <aside class="tally" id="tally">
+          <p class="tally__lbl">Your platter</p>
+          <ul class="tally__list" id="tallyList"></ul>
+          <div class="tally__qty">
+            <span>Quantity</span>
+            <div class="qty">
+              <button type="button" class="qty__b" id="qtyDown" aria-label="Decrease quantity">&minus;</button>
+              <output class="qty__v" id="qtyVal" aria-live="polite">1</output>
+              <button type="button" class="qty__b" id="qtyUp" aria-label="Increase quantity">+</button>
+            </div>
+          </div>
+          <div class="tally__total">
+            <span>Total</span>
+            <output class="tally__num" id="tallyTotal" aria-live="polite">₦0</output>
+          </div>
+          <button type="submit" class="btn btn--order btn--full" id="builderSend" disabled>
+            Send platter to WhatsApp
+          </button>
+          <p class="tally__note" id="builderMsg">Pick a protein and 2 sides to continue.</p>
+        </aside>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ══════════════════ CATERING ══════════════════ -->
+<section class="sec sec--catering" id="catering">
+  <div class="wrap">
+    <div class="cater">
+      <div class="cater__copy">
+        <p class="kicker"><span class="dot"></span> Catering &amp; Bulk</p>
+        <h2 class="sec__h2">We bring<br><em>the fire</em></h2>
+        <p class="sec__lede">
+          Office lunches, birthdays, weddings, church programmes, corporate
+          end-of-year. We grill on site or deliver hot-held platters to your venue.
+        </p>
+        <ul class="cater__pts">
+          <li><strong>From 10 guests</strong> upward, anywhere in Abuja</li>
+          <li><strong>Live grill station</strong> with our own chef and coals</li>
+          <li><strong>Custom platters</strong> built around your budget per head</li>
+          <li><strong>48h notice</strong> preferred for parties over 50</li>
+        </ul>
+      </div>
+
+      <form class="lead" id="lead" novalidate>
+        <p class="lead__hd">Tell us about the event</p>
+
+        <label class="fld">
+          <span class="fld__l">Your name</span>
+          <input type="text" name="name" id="ldName" required autocomplete="name" placeholder="Amina Bello">
+          <span class="fld__e" data-for="ldName"></span>
+        </label>
+
+        <label class="fld">
+          <span class="fld__l">Phone / WhatsApp</span>
+          <input type="tel" name="phone" id="ldPhone" required autocomplete="tel" inputmode="tel" placeholder="0803 000 0000">
+          <span class="fld__e" data-for="ldPhone"></span>
+        </label>
+
+        <div class="fld__row">
+          <label class="fld">
+            <span class="fld__l">Event type</span>
+            <select name="type" id="ldType">
+              <option>Office lunch</option>
+              <option>Birthday party</option>
+              <option>Wedding / traditional</option>
+              <option>Corporate event</option>
+              <option>Church / mosque programme</option>
+              <option>Other</option>
+            </select>
+          </label>
+          <label class="fld">
+            <span class="fld__l">Guests</span>
+            <input type="number" name="guests" id="ldGuests" min="10" step="1" inputmode="numeric" placeholder="40" required>
+            <span class="fld__e" data-for="ldGuests"></span>
+          </label>
+        </div>
+
+        <div class="fld__row">
+          <label class="fld">
+            <span class="fld__l">Event date</span>
+            <input type="date" name="date" id="ldDate">
+          </label>
+          <label class="fld">
+            <span class="fld__l">Area in Abuja</span>
+            <input type="text" name="area" id="ldArea" placeholder="Maitama" autocomplete="address-level3">
+          </label>
+        </div>
+
+        <label class="fld">
+          <span class="fld__l">Anything else? <i>(optional)</i></span>
+          <textarea name="notes" id="ldNotes" rows="3" placeholder="Budget per head, dietary needs, venue access…"></textarea>
+        </label>
+
+        <button type="submit" class="btn btn--order btn--full">Send enquiry on WhatsApp</button>
+        <p class="lead__alt">
+          Prefer to talk? <a href="#" id="ldCall">Call {{PHONE}}</a>
+        </p>
+        <p class="lead__legal">
+          This prototype has no server. Submitting opens WhatsApp with your
+          details pre-written — nothing is stored on this site.
+        </p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ LOCATION ══════════════════ -->
+<section class="sec sec--loc" id="location">
+  <div class="wrap">
+    <header class="sec__hd">
+      <p class="kicker"><span class="dot"></span> Find Us</p>
+      <h2 class="sec__h2">Jabi,<br><em>Abuja</em></h2>
+    </header>
+
+    <div class="loc">
+      <div class="loc__info">
+        <div class="status" id="statusCard">
+          <span class="status__pip" id="statusPip"></span>
+          <span class="status__txt">
+            <strong id="statusNow">Checking…</strong>
+            <small id="statusNext"></small>
+          </span>
+        </div>
+
+        <address class="loc__addr">
+          <strong>4 Amisi Musa St</strong><br>
+          Jabi, Abuja, Nigeria
+        </address>
+
+        <div class="loc__btns">
+          <a class="btn btn--gold" id="callBtn" href="#">Call {{PHONE}}</a>
+          <a class="btn btn--ghost" id="dirBtn" href="#" target="_blank" rel="noopener">Get directions</a>
+        </div>
+
+        <table class="hours" id="hoursTable">
+          <caption class="vh">Opening hours</caption>
+          <tbody></tbody>
+        </table>
+        <p class="note">Hours are placeholder data — confirm before publishing.</p>
+      </div>
+
+      <div class="map" id="map">
+        <button class="map__load" id="mapLoad" type="button">
+          <span class="map__grid" aria-hidden="true"></span>
+          <span class="map__pin" aria-hidden="true"></span>
+          <span class="map__lbl">
+            <strong>Load the map</strong>
+            <small>Loads Google Maps · uses mobile data</small>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ══════════════════ FOOTER ══════════════════ -->
+<footer class="ftr" id="order">
+  <div class="wrap">
+    <div class="ftr__top">
+      <div class="ftr__brand">
+        <span class="logo__txt logo__txt--big">Salamora<em>Grills</em></span>
+        <p>Open-fire grill house in Jabi. Charcoal, pepper, and nothing microwaved.</p>
+        <a class="ig" id="igLink" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true" class="ico"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.8 3.8 0 0 1-1.38-.9c-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 3.08A6.76 6.76 0 1 0 18.76 12 6.76 6.76 0 0 0 12 5.24Zm0 11.15A4.39 4.39 0 1 1 16.39 12 4.39 4.39 0 0 1 12 16.39Zm8.6-11.42a1.58 1.58 0 1 1-1.58-1.58 1.58 1.58 0 0 1 1.58 1.58Z"/></svg>
+          <span id="igHandle">@salamoragrills.ng</span>
+        </a>
+      </div>
+
+      <div class="ftr__col">
+        <h3>Quick chat</h3>
+        <ul class="ftr__links" id="quickChat"></ul>
+      </div>
+
+      <div class="ftr__col ftr__col--areas">
+        <h3>We deliver across Abuja</h3>
+        <ul class="areas" id="areas"></ul>
+        <p class="note note--sm">Delivery fees vary by distance. Confirm on WhatsApp.</p>
+      </div>
+    </div>
+
+    <div class="ftr__bot">
+      <p>&copy; <span id="yr"></span> Salamora Grills · 4 Amisi Musa St, Jabi, Abuja</p>
+      <p class="ftr__proto">Design prototype · content &amp; pricing unverified</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating order button (mobile) -->
+<a class="fab" id="fab" href="#" data-wa="fab">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.16c-.25.69-1.44 1.32-2 1.36-.51.04-1.16.06-1.87-.12-.43-.11-.99-.33-1.7-.64-2.99-1.29-4.95-4.3-5.1-4.5-.15-.2-1.22-1.62-1.22-3.09s.77-2.19 1.05-2.49c.27-.3.6-.37.8-.37h.57c.18 0 .43-.07.67.51.25.6.85 2.07.92 2.22.08.15.13.33.02.53-.1.2-.15.32-.3.5-.15.17-.32.39-.45.52-.15.15-.31.31-.13.61.17.3.77 1.27 1.66 2.06 1.14 1.02 2.1 1.33 2.4 1.48.3.15.47.13.65-.08.17-.2.75-.87.95-1.17.2-.3.4-.25.67-.15.27.1 1.72.81 2.02.96.3.15.5.22.57.35.07.12.07.71-.18 1.4Z"/></svg>
+  <span>Order</span>
+</a>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/menu.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+# Salamora Grills — UNREVIEWED PROTOTYPE
+#
+# Every price, dish, opening hour and delivery area on this site is
+# placeholder data that the business has not confirmed. Until that is done,
+# this site must not appear in search results: a customer searching
+# "Salamora Grills menu" and finding invented prices is a real cost to a
+# real business.
+#
+# AT LAUNCH, once the content is verified: delete this file and remove the
+# robots meta tag from index.html.
+
+User-agent: *
+Disallow: /
